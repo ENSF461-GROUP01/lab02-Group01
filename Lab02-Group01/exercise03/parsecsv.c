@@ -35,13 +35,39 @@ int main(int argc, char** argv) {
     }
     fclose(fin);
 
-    // TODO: write the list to the output file
+    // write the list to the output file
     // Each line of the output file should contain the average and the standard deviation
     // as a comma-separated pair (e.g., "1.23,4.56")
+    FILE* fout = fopen(argv[2], "w");
+    if(fout == NULL)
+    {
+        fprintf(stderr, "%s", foerr);
+        //free memory here
+        record_t* it = head;
+        while (it != NULL)
+        {
+            record_t* tmp = it->next;
+            free(it);
+            it = tmp;
+        }
+        return -3;
+    }
 
+    for(record_t* it = head; it != NULL; it = next(it))
+    {
+        fprintf(fout, "%.2f, %.2f\n", it->avg, it->sdv);
+    }
+    fclose(fout);
+    
 
-    // TODO: free all the memory allocated for the list
-
+    // free all the memory allocated for the list
+    record_t* it = head;
+    while(it != NULL)
+    {
+        record_t* tmp = it->next;
+        free(it);
+        it = tmp;
+    }
 
     return 0;
 }
