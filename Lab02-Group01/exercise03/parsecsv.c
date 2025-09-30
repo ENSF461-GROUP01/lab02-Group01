@@ -55,7 +55,7 @@ int main(int argc, char** argv) {
 
     for(record_t* it = head; it != NULL; it = next(it))
     {
-        fprintf(fout, "%.2f, %.2f\n", it->avg, it->sdv);
+        fprintf(fout, "%.6f, %.6f\n", it->avg, it->sdv);
     }
     fclose(fout);
     
